@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BBC Weather - Home</title>
+    <link rel="stylesheet" href="./generic.css" />
+    <link rel="stylesheet" href="./style.css" />
+
+    <script type="module" src="./functions/entry.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="menu-left">
+          <div class="sign-in">
+            <a href="#">
+              <svg
+                width="23"
+                height="24"
+                viewBox="0 0 32 32"
+                fill="#000"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 17.5a7.878 7.878 0 01-8-7.75A7.878 7.878 0 0116 2a7.878 7.878 0 018 7.75 7.878 7.878 0 01-8 7.75zM2 30c0-5.883 7.519-10 14.014-10C22.48 20 30 24.12 30 29.994c0 .005-28 .007-28 .005z"
+                />
+              </svg>
+            </a>
+          </div>
+          <div class="alarm">
+            <a href="#">
+              <svg
+                width="23"
+                height="24"
+                viewBox="0 0 23 24"
+                fill="#000"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.35 15.1883C19.8562 15.7235 20.6674 16.0612 21.7837 16.1996L23 16.3481V18.6667H0V16.3481L1.21634 16.1996C2.35241 16.0612 3.16834 15.7235 3.66602 15.1883C4.16276 14.6532 4.41113 13.8413 4.41113 12.7517V9.71992C4.41113 7.97614 4.87764 6.53868 5.81068 5.40938C6.74371 4.28008 8.06204 3.54752 9.76567 3.20983V0H13.2343V3.20983C14.938 3.54752 16.2553 4.28008 17.1893 5.40938C18.1224 6.53868 18.5889 7.97614 18.5889 9.71992V12.7517C18.5889 13.8413 18.8429 14.6532 19.35 15.1883ZM11.4996 24C10.4854 24 9.66944 23.6713 9.05088 23.0122C8.43232 22.353 8.12351 21.5721 8.12351 20.6667H14.8767C14.8767 21.5721 14.5669 22.353 13.9493 23.0122C13.3307 23.6713 12.5139 24 11.4996 24Z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="logo">
+          <a href="#">
+            <svg
+              width="112"
+              height="32"
+              viewBox="0 0 112 32"
+              fill="#000"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.99999 6.99999H15.7552C17.7458 6.99999 19.2878 7.39887 20.3811 8.19576C21.4741 8.99309 22.021 10.1385 22.021 11.6321C22.021 12.4881 21.8252 13.2308 21.4335 13.8601C21.0419 14.4894 20.4625 14.9891 19.6958 15.358C20.7563 15.7104 21.5682 16.2686 22.1311 17.0321C22.6941 17.796 22.9755 18.7232 22.9755 19.814C22.9755 20.8882 22.7021 21.8114 22.1555 22.5832C21.6087 23.3553 20.8296 23.9513 19.8182 24.3706C18.8062 24.7903 17.5909 25 16.1713 25H8.99999V6.99999ZM0 32H32V0H0V32ZM48.9999 6.99999H55.7551C57.7457 6.99999 59.2877 7.39887 60.3811 8.19576C61.4741 8.99309 62.0209 10.1385 62.0209 11.6321C62.0209 12.4881 61.8251 13.2308 61.4334 13.8601C61.0419 14.4894 60.4624 14.9891 59.6957 15.358C60.7562 15.7104 61.568 16.2686 62.1311 17.0321C62.694 17.796 62.9753 18.7232 62.9753 19.814C62.9753 20.8882 62.7019 21.8114 62.1554 22.5832C61.6087 23.3553 60.8297 23.9513 59.818 24.3706C58.8062 24.7903 57.5908 25 56.1712 25H48.9999V6.99999ZM39.9999 32H71.9999V0H39.9999V32ZM55.8775 17.2209H52.6469V22.0797H55.8286C56.9216 22.0797 57.7622 21.8743 58.3497 21.4629C58.9369 21.0518 59.2308 20.4602 59.2308 19.6881C59.2308 18.0435 58.1128 17.2209 55.8775 17.2209ZM55.4125 9.92026C57.3541 9.92026 58.3252 10.6338 58.3252 12.06C58.3252 12.7988 58.0763 13.3735 57.5787 13.7846C57.0808 14.196 56.3588 14.4014 55.4125 14.4014H52.6469V9.92026H55.4125ZM15.4126 9.92026C17.3542 9.92026 18.3253 10.6338 18.3253 12.06C18.3253 12.7988 18.0763 13.3735 17.5787 13.7846C17.0808 14.196 16.3588 14.4014 15.4126 14.4014H12.6469V9.92026H15.4126ZM15.8776 17.2209H12.6469V22.0797H15.8287C16.9217 22.0797 17.7623 21.8743 18.3497 21.4629C18.937 21.0518 19.2308 20.4602 19.2308 19.6881C19.2308 18.0435 18.1129 17.2209 15.8776 17.2209ZM100.391 24.8338C101.373 24.5956 102.237 24.2706 102.982 23.8592V20.4292C101.407 21.4001 99.6879 21.8851 97.8249 21.8851C96.6052 21.8851 95.5677 21.6549 94.7125 21.1942C93.857 20.7338 93.2048 20.0633 92.7562 19.1831C92.3071 18.3032 92.0829 17.238 92.0829 15.9876C92.0829 14.7377 92.3155 13.6766 92.7814 12.8045C93.2472 11.9327 93.9161 11.2665 94.7887 10.8058C95.6608 10.3454 96.7153 10.1148 97.9519 10.1148C98.8494 10.1148 99.705 10.2343 100.518 10.4726C101.331 10.7113 102.084 11.0609 102.779 11.5212V8.01737C102.017 7.62259 101.191 7.32259 100.302 7.1167C99.4128 6.91126 98.4683 6.80826 97.4691 6.80826C96.0292 6.80826 94.7292 7.02226 93.5691 7.44981C92.4088 7.87781 91.4136 8.4947 90.5839 9.30048C89.7537 10.1067 89.1187 11.0732 88.6783 12.1999C88.2377 13.3269 88.0176 14.5896 88.0176 15.9876C88.0176 17.4188 88.2295 18.7062 88.6529 19.8493C89.0761 20.9929 89.6859 21.9591 90.4822 22.7488C91.2782 23.5383 92.252 24.143 93.404 24.5624C94.5557 24.9819 95.8515 25.1917 97.2912 25.1917C98.375 25.1917 99.4085 25.0721 100.391 24.8338ZM112 32H79.9998V4.44444e-05H112V32Z"
+              ></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="menu">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Weather</a></li>
+            <li><a href="#">iPlayer</a></li>
+            <li><a href="#">Sounds</a></li>
+            <li><a href="#">CBBC</a></li>
+            <li><a href="#">CBeebies</a></li>
+            <li><a href="#">Food</a></li>
+            <li><a href="#">Bitesize</a></li>
+            <li><a href="#">Arts</a></li>
+            <li><a href="#">Taster</a></li>
+            <li><a href="#">Local</a></li>
+            <li><a href="#">Three</a></li>
+            <li><a href="#">Menu</a></li>
+          </ul>
+        </div>
+
+        <div class="menu-right">
+          <div class="burger">
+            <svg
+              width="24"
+              height="22"
+              viewBox="0 0 20 19"
+              fill="#000"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 3.63393H20V0H0V3.63393ZM0 10.9018H20V7.26787H0V10.9018ZM0 18.5H20V14.8661H0V18.5Z"
+              ></path>
+            </svg>
+          </div>
+          <div class="search">
+            <svg width="28" height="29" viewBox="0 0 28 29">
+              <path
+                d="M11,-0.0001 C17.0751322,-0.0001 22,4.92476775 22,10.9999 C22,13.5276632 21.1473793,15.8562862 19.7140404,17.7138664 L28,26 L25,29 L16.518046,20.5178339 C14.8960209,21.4602385 13.0110328,21.9999 11,21.9999 C4.92486775,21.9999 0,17.0750322 0,10.9999 C0,4.92476775 4.92486775,-0.0001 11,-0.0001 Z M11,2.5 C6.30557963,2.5 2.5,6.30557963 2.5,11 C2.5,15.6944204 6.30557963,19.5 11,19.5 C15.6944204,19.5 19.5,15.6944204 19.5,11 C19.5,6.30557963 15.6944204,2.5 11,2.5 Z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="weather-header">
+        <div>
+          <h2>WEATHER</h2>
+          <div class="search-bar">
+            <div class="fake-input">
+              <input
+                type="text"
+                placeholder="Enter a city"
+                id="city-search-input"
+              />
+              <button type="button">
+                <svg fill="#000" width="2em" height="2em" viewBox="0 0 32 32">
+                  <path
+                    d="M19.2 23.2c-1.9 1.1-4 1.6-6.2 1.6C6.2 24.8.9 19.5.9 12.7.9 5.7 6.1.5 13 .5c7 0 12.2 5.2 12.2 12.1 0 2.6-.8 5.1-2.3 7.1l8.4 8.4-3.6 3.6-8.5-8.5zM13 4c-4.8 0-8.5 3.7-8.5 8.6s3.7 8.6 8.5 8.6 8.5-3.7 8.5-8.6S17.8 4 13 4z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="search-menu">
+            <div>
+              <p>Recent searches</p>
+
+              <ul>
+                <li>You haven't searched for any locations yet.</li>
+                <li>Previous searches will appear here.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="search-locations">
+            <div>
+              <ul>
+                <li>London, Greater London</li>
+                <li>Londonderry, Derry City</li>
+                <li>Longview (TX), United States</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="location">
+            <button id="locateMeButton">
+              <span> Find my location </span>
+              <svg fill="#fff" width="32px" height="32px" viewBox="0 0 32 32">
+                <path
+                  d="M16 31c8.5 0 15-6.5 15-15S24.5 1 16 1 1 7.5 1 16s6.5 15 15 15zm0-2.8C9.1 28.2 3.9 22.9 3.9 16S9.1 3.8 16 3.8c6.9 0 12.1 5.3 12.1 12.2S22.9 28.2 16 28.2zm-1.3.3h2.7l-.2-7.4h-2.3l-.2 7.4zM3.5 17.4l7.4-.2v-2.3l-7.4-.2v2.7zm11.4-6.6h2.3l.2-7.4h-2.7l.2 7.4zm13.7 6.6v-2.7l-7.4.2v2.3l7.4.2z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="search">
+            <label for="search-location">
+              <svg
+                width="2em"
+                height="2em"
+                viewBox="0 0 32 32"
+                fill="#fff"
+                class="magnifier"
+              >
+                <path
+                  d="M19.2,23.2c-1.9,1.1-4,1.6-6.2,1.6c-6.8,0-12.1-5.3-12.1-12.1c0-7,5.2-12.2,12.1-12.2c7,0,12.2,5.2,12.2,12.1 c0,2.6-0.8,5.1-2.3,7.1l8.4,8.4l-3.6,3.6L19.2,23.2z M13,4c-4.8,0-8.5,3.7-8.5,8.6s3.7,8.6,8.5,8.6s8.5-3.7,8.5-8.6S17.8,4,13,4z"
+                ></path>
+              </svg>
+              <svg
+                width="2em"
+                height="2em"
+                viewBox="0 0 32 32"
+                fill="#000"
+                class="close"
+              >
+                <path
+                  d="m30 4.6-2.8-2.8L2 27.4l2.8 2.8L30 4.6zM4.8 1.8 1.9 4.7l25.2 25.5 2.9-2.9L4.8 1.8z"
+                ></path>
+              </svg>
+            </label>
+            <input type="checkbox" name="searh-location" id="search-location" />
+          </div>
+        </div>
+      </section>
+
+      <section class="weather-map">
+        <div>
+          <h2>Weather forecasts for thousands of locations around the world</h2>
+          <div class="map">
+            <div class="map-container">
+              <img src="./world.png" alt="World map" />
+            </div>
+          </div>
+          <a href="https://www.bbc.com/weather/map">
+            <svg viewBox="0 0 32 32" width="16" height="16">
+              <path
+                d="M28.6,6h-7V3.6H31V13h-2.4V6z M3.4,6h7V3.6H1V13h2.4V6z M28.6,26h-7v2.4H31V19h-2.4V26z M3.4,26h7v2.4H1V19h2.4V26z"
+              ></path>
+            </svg>
+            Detailed map</a
+          >
+        </div>
+      </section>
+
+      <section class="weather-by-day">
+        <div class="city-header">
+          <h2 class="city-name">London</h2>
+          <button>+ <span>Add</span></button>
+        </div>
+
+        <div class="dayCarousel">
+          <button class="back">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="#fff">
+              <path
+                d="M30.485 7.244 16 21.729 1.515 7.244 0 8.757l16 16 16-16z"
+              ></path>
+            </svg>
+          </button>
+
+          <ul>
+            <li>
+              <h2>Today</h2>
+              <div class="dayCont">
+                <div class="icon"></div>
+                <div class="temperatures">
+                  <span class="high"></span>
+                  <span class="low"></span>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <button class="forward">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="#fff">
+              <path
+                d="M30.485 7.244 16 21.729 1.515 7.244 0 8.757l16 16 16-16z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- <div class="description">This is the weather description</div> -->
+      </section>
+
+      <section class="weather-forecast">
+        <div>
+          <h2>Forecast for South and Central America</h2>
+          <div>
+            <img src="./bbc_weather.png" alt="Weather Forecast" />
+            <div>
+              <svg viewBox="0 0 32 32" width="13px" height="13px">
+                <path
+                  d="M16 31c8.5 0 15-6.5 15-15S24.5 1 16 1 1 7.5 1 16s6.5 15 15 15zm0-2.7C9 28.3 3.7 23 3.7 16S9 3.7 16 3.7C23 3.7 28.3 9 28.3 16S23 28.3 16 28.3zm6.2-6.7 1-1.5-5.7-4.5-.6-8.6H15l-.7 10.5 7.9 4.1z"
+                ></path>
+              </svg>
+              2 hours ago
+            </div>
+            <div class="floating-div"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="weather-features">
+        <div>
+          <h2>Features</h2>
+          <ul>
+            <li>
+              <div class="lds-ripple">
+                <div></div>
+                <div></div>
+              </div>
+              <div class="content">
+                <img src="./temp.webp" alt="" />
+                <div>
+                  <a href="">
+                    <h3>Feature Title</h3>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    </p>
+                  </a>
+                  <p>
+                    <a href="">Features</a>
+                    &middot; <span class="feature-updated-time">2h</span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="lds-ripple">
+                <div></div>
+                <div></div>
+              </div>
+              <div class="content">
+                <img src="./temp.webp" alt="" />
+                <div>
+                  <a href="">
+                    <h3>Feature Title</h3>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Enim impedit ex iure reprehenderit at consectetur sunt
+                      ducimus dolore modi natus, ratione necessitatibus, soluta
+                      dolorum, iusto id repellendus dignissimos excepturi earum.
+                    </p>
+                  </a>
+                  <p>
+                    <a href="">Features</a>
+                    &middot; <span class="feature-updated-time">2h</span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="lds-ripple">
+                <div></div>
+                <div></div>
+              </div>
+              <div class="content">
+                <img src="./temp.webp" alt="" />
+                <div>
+                  <a href="">
+                    <h3>Feature Title</h3>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    </p>
+                  </a>
+                  <p>
+                    <a href="">Features</a>
+                    &middot; <span class="feature-updated-time">2h</span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="lds-ripple">
+                <div></div>
+                <div></div>
+              </div>
+              <div class="content">
+                <img src="./temp.webp" alt="" />
+                <div>
+                  <a href="">
+                    <h3>Feature Title</h3>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    </p>
+                  </a>
+                  <p>
+                    <a href="">Features</a>
+                    &middot; <span class="feature-updated-time">2h</span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="lds-ripple">
+                <div></div>
+                <div></div>
+              </div>
+              <div class="content">
+                <img src="./temp.webp" alt="" />
+                <div>
+                  <a href="">
+                    <h3>Feature Title</h3>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    </p>
+                  </a>
+                  <p>
+                    <a href="">Features</a>
+                    &middot; <span class="feature-updated-time">2h</span>
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="weather-settings">
+        <div>
+          <h2>Settings</h2>
+          <div>
+            <div>
+              <h3>Language</h3>
+              <select name="lang" id="select-language">
+                <option value="en" selected>English</option>
+                <option value="cy">Cymraeg</option>
+                <option value="ga">Gaeilg</option>
+                <option value="gd">Gàidhlig</option>
+              </select>
+            </div>
+            <div>
+              <h3>Temperature</h3>
+              <select name="temp" id="select-temperature">
+                <option value="c" selected>Celsius</option>
+                <option value="f">Fahrenheit</option>
+              </select>
+            </div>
+            <div>
+              <h3>Wind speed</h3>
+              <select name="wsp" id="select-windspeed">
+                <option value="mph" selected>Miles per hout</option>
+                <option value="kph">Kilometers per hour</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="weather-more">
+        <div>
+          <h2>More Weather</h2>
+          <ul>
+            <li>
+              <h3>UK</h3>
+              <ul>
+                <li>
+                  <a href="#">Weather Warnings</a>
+                </li>
+                <li>
+                  <a href="#">Flood Warnings</a>
+                </li>
+                <li>
+                  <a href="#">Monthly Outlook</a>
+                </li>
+                <li>
+                  <a href="#">Coast & Sea</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h3>About BBC Weather</h3>
+              <ul>
+                <li>
+                  <a href="#">FAQs</a>
+                </li>
+                <li>
+                  <a href="#">Feeds</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h3>Elsewhere</h3>
+              <ul>
+                <li>
+                  <a href="#">Open Weather</a>
+                </li>
+                <li>
+                  <a href="#">World Meteorological Organization</a>
+                </li>
+                <li>
+                  <a href="#">Met Office</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="weather-footer">
+        <div>
+          <p>BBC Weather in association with <a href="#">Open Weather</a></p>
+          <p>
+            All times are Greenwich Mean Time (Europe/London, GMT) unless
+            otherwise stated.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="explore">
+        <h2>Explore the BBC</h2>
+        <div class="links">
+          <div class="domestic">
+            <nav>
+              <ul>
+                <li>
+                  <a href="#">Home</a>
+                </li>
+                <li>
+                  <a href="#">News</a>
+                </li>
+                <li>
+                  <a href="#">Sport</a>
+                </li>
+                <li>
+                  <a href="#">Weather</a>
+                </li>
+                <li>
+                  <a href="#">iPlayer</a>
+                </li>
+                <li>
+                  <a href="#">Sounds</a>
+                </li>
+                <li>
+                  <a href="#">Bitesize</a>
+                </li>
+                <li>
+                  <a href="#">CBeebies</a>
+                </li>
+                <li>
+                  <a href="#">CBBC</a>
+                </li>
+                <li>
+                  <a href="#">Food</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="international">
+            <nav>
+              <ul>
+                <li>
+                  <a href="#">Home</a>
+                </li>
+                <li>
+                  <a href="#">News</a>
+                </li>
+                <li>
+                  <a href="#">Sport</a>
+                </li>
+                <li>
+                  <a href="#">Earth</a>
+                </li>
+                <li>
+                  <a href="#">Reel</a>
+                </li>
+                <li>
+                  <a href="#">Worklife</a>
+                </li>
+                <li>
+                  <a href="#">Travel</a>
+                </li>
+                <li>
+                  <a href="#">Culture</a>
+                </li>
+                <li>
+                  <a href="#">Future</a>
+                </li>
+                <li>
+                  <a href="#">TV</a>
+                </li>
+                <li>
+                  <a href="#">Weather</a>
+                </li>
+                <li>
+                  <a href="#">Sounds</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="legal">
+        <nav>
+          <ul>
+            <li>
+              <a href="#">Terms of Use</a>
+            </li>
+            <li>
+              <a href="#">About the BBC</a>
+            </li>
+            <li>
+              <a href="#">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#">Cookies</a>
+            </li>
+            <li>
+              <a href="#">Accessibility Help</a>
+            </li>
+            <li>
+              <a href="#">Parental Guidance</a>
+            </li>
+            <li>
+              <a href="#">Contact the BBC</a>
+            </li>
+            <li>
+              <a href="#">BBC emails for you</a>
+            </li>
+            <li>
+              <a href="#">Advertise with us</a>
+            </li>
+            <li>
+              <a href="#">Do not share or sell my info</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="copyright">
+        Copyright &copy; 2023 BBC. The BBC is not responsible for the content of
+        external sites.
+        <a href="#">Read about our approach to external linking.</a>
+      </div>
+    </footer>
+  </body>
+</html>
