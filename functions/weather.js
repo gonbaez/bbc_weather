@@ -1,7 +1,7 @@
 import { format, isSameDay } from "https://cdn.skypack.dev/date-fns";
 import { getGeoIdByCoordinates } from "./location.js";
 
-export const openWeatherApiKey = "c41e68590ba8503efb6fbbc4cedf10fd";
+import { openWeatherApiKey } from "./env.js";
 
 // Get a text summary of the weather for UK
 export async function getForecastById(id) {

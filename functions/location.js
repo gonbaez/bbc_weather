@@ -5,7 +5,7 @@
 // - Should I save the coordinates to a CONST instead of calling the function every time?
 // - How would I save the coordinates to a variable available in the module? Using VAR?
 
-import { openWeatherApiKey } from "./weather.js";
+import { openWeatherApiKey } from "./env.js";
 
 const navigatorOptions = {
   enableHighAccuracy: true,

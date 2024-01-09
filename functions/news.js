@@ -1,9 +1,9 @@
-const apiKey = "3d28b913ba2c45fdbc5828e810152892";
+import { newsAapiKey } from "./env.js";
 
 export async function getNews(countryCode) {
   try {
     const response = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=${countryCode}&apiKey=${apiKey}&pageSize=5` //&category=weather`
+      `https://newsapi.org/v2/top-headlines?country=${countryCode}&apiKey=${newsAapiKey}&pageSize=5` //&category=weather`
     );
 
     const articles = response.data.articles;

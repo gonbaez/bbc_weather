@@ -1,5 +1,3 @@
-const apiKey = "twHTL6sd/ayCP6w+BiUzNw==vs99d7XeQ8Bhod0c";
-
 export async function getCities(searchStr) {
   try {
     const response = await axios.get(
