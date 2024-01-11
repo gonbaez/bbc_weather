@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "ReithSans";
+  src: url("./BBCReithSans_Rg.ttf") format("truetype");
+}
+body {
+  font-family: "ReithSans", Arial, Helvetica sans-serif;
+}
+
 header {
   padding: 0 16px;
 }
