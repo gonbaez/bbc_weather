@@ -33,23 +33,32 @@ domRef.searchInputRef.addEventListener("input", async (e) => {
   if (e.target.value.length >= 2) {
     const cities = await getCities(e.target.value);
 
-    // Update DOM with cities
-    const htmlCities = cities
-      .map((city) => {
-        const reg = new RegExp(e.target.value, "gi");
-        const cityBold = city.replace(reg, (str) => {
-          return `<b>${str}</b>`;
-        });
+    if (cities.length > 0) {
+      // Update DOM with cities
+      const htmlCities = cities
+        .map((city) => {
+          const reg = new RegExp(e.target.value, "gi");
+          const cityBold = city.replace(reg, (str) => {
+            return `<b>${str}</b>`;
+          });
 
-        return `<li>${cityBold}</li>`;
-      })
-      .join("");
+          return `<li>${cityBold}</li>`;
+        })
+        .join("");
 
-    domRef.searchLocationsRef.querySelector("ul").innerHTML = htmlCities; // Is this the right way of doing it?
+      domRef.searchLocationsRef.querySelector("ul").innerHTML = htmlCities; // Is this the right way of doing it?
 
-    domRef.searchLocationsRef.style.display = "block";
+      domRef.searchLocationsRef.style.display = "block";
+      domRef.searchMenuRef.style.display = "none";
+    } else {
+      const noResultText = `<li class="noResult">We couldn't find any results for "${e.target.value}"</li>`;
+      domRef.searchLocationsRef.querySelector("ul").innerHTML = noResultText;
+
+      domRef.searchLocationsRef.style.display = "block";
+    }
   } else {
     domRef.searchLocationsRef.style.display = "none";
+    domRef.searchMenuRef.style.display = "block";
   }
 });
 
@@ -105,7 +114,8 @@ domRef.searchLocationsUlRef.addEventListener("click", async (e) => {
 
   const geoId = await getCityGeoId(city);
 
-  const forecast = await getForecastById(geoId["id"]);
+  // const forecast = await getForecastById(geoId["id"]);
+  const forecast = await getWeatherByCoordinates(geoId["lat"], geoId["lon"]);
 
   changeToWeatherMode({ forecast: forecast, name: geoId["name"] });
 
@@ -161,7 +171,7 @@ function changeToWeatherMode(data) {
   domRef.mapRef.style.display = "none";
   domRef.weatherByDayRef.style.display = "block";
 
-  const forecast = data.forecast;
+  const forecast = data.forecast.forecast;
   const name = data.name;
 
   // Update city name
