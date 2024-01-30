@@ -24,6 +24,8 @@ export const searchInputRef = document.getElementById("city-search-input");
 
 export const searchLocationsRef = document.querySelector(".search-locations");
 
+export const searchMenuRef = document.querySelector(".search-menu");
+
 // Forecast
 export const forecastTitleRef = document.querySelector(".weather-forecast h2");
 
